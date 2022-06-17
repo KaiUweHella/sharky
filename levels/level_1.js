@@ -1,5 +1,13 @@
 const level_1 = new Level(
-  [new JellyFish(), new JellyFish(), new JellyFish(), new JellyFish(), new Endboss()],
+  [
+    new JellyFish(),
+    new JellyFish(),
+    new JellyFish(),
+    new JellyFish(),
+    new JellyFish(),
+    new JellyFish(),
+    new Endboss(),
+  ],
   [new Light()],
   [
     new BackgroundObject("img/3. Background/Layers/5. Water/D2.png", -720),

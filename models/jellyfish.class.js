@@ -13,8 +13,10 @@ class JellyFish extends MovableObject {
     super().loadImage("../img/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png");
     this.loadImages(this.IMAGES_REGULAR);
 
-    this.x = 200 + Math.random() * 500; //zahl zwischen 200 und 700
+    this.x = 200 + Math.random() * 1000; //zahl zwischen 200 und 700
     this.speed = 0.15 + Math.random() * 0.25;
+
+    this.y = 0 + Math.random() * 460; //zahl zwischen 200 und 700
 
     this.animate();
   }
