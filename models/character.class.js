@@ -3,6 +3,47 @@ class Character extends MovableObject {
   width = 240;
   speed = 5;
   y = 100;
+  IMAGES_ATTACK_BUBBLE = [
+    "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/1.png",
+    "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/2.png",
+    "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/3.png",
+    "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/4.png",
+    "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/5.png",
+    "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png",
+    "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/7.png",
+    "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/8.png",
+  ];
+  IMAGES_DEAD_POISON = [
+    'img/1.Sharkie/6.dead/1.Poisoned/1.png',
+    'img/1.Sharkie/6.dead/1.Poisoned/2.png',
+    'img/1.Sharkie/6.dead/1.Poisoned/3.png',
+    'img/1.Sharkie/6.dead/1.Poisoned/4.png',
+    'img/1.Sharkie/6.dead/1.Poisoned/5.png',
+    'img/1.Sharkie/6.dead/1.Poisoned/6.png',
+    'img/1.Sharkie/6.dead/1.Poisoned/7.png',
+    'img/1.Sharkie/6.dead/1.Poisoned/8.png',
+    'img/1.Sharkie/6.dead/1.Poisoned/9.png',
+    'img/1.Sharkie/6.dead/1.Poisoned/10.png',
+    'img/1.Sharkie/6.dead/1.Poisoned/11.png',
+    'img/1.Sharkie/6.dead/1.Poisoned/12.png',
+  ];
+  IMAGES_POISON_HURT = [
+    'img/1.Sharkie/5.Hurt/1.Poisoned/1.png',
+    'img/1.Sharkie/5.Hurt/1.Poisoned/2.png',
+    'img/1.Sharkie/5.Hurt/1.Poisoned/3.png',
+    'img/1.Sharkie/5.Hurt/1.Poisoned/4.png',
+    'img/1.Sharkie/5.Hurt/1.Poisoned/5.png',
+  ]
+  // IMAGES_ATTACK = [
+  //   'img/1.Sharkie/4.Attack/Fin slap/1.png',
+  //   'img/1.Sharkie/4.Attack/Fin slap/2.png',
+  //   'img/1.Sharkie/4.Attack/Fin slap/3.png',
+  //   'img/1.Sharkie/4.Attack/Fin slap/4.png',
+  //   'img/1.Sharkie/4.Attack/Fin slap/5.png',
+  //   'img/1.Sharkie/4.Attack/Fin slap/6.png',
+  //   'img/1.Sharkie/4.Attack/Fin slap/7.png',
+  //   'img/1.Sharkie/4.Attack/Fin slap/8.png'
+  // ];
   IMAGES_IDLE = [
     "img/1.Sharkie/1.IDLE/1.png",
     "img/1.Sharkie/1.IDLE/2.png",
@@ -38,7 +79,10 @@ class Character extends MovableObject {
     super().loadImage("img/1.Sharkie/1.IDLE/1.png");
     this.loadImages(this.IMAGES_IDLE);
     this.loadImages(this.IMAGES_SWIM);
-    
+    this.loadImages(this.IMAGES_ATTACK_BUBBLE);
+    this.loadImages(this.IMAGES_DEAD_POISON);
+    this.loadImages(this.IMAGES_POISON_HURT);
+
     this.animate();
   }
 
@@ -68,19 +112,25 @@ class Character extends MovableObject {
     }, 1000 / 60);
 
     setInterval(() => {
-      if (
+      if (this.world.keyboard.SPACE) {
+        this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
+      }
+      else if (this.isHurt()) {
+        this.playAnimation(this.IMAGES_POISON_HURT);
+      }
+      else if (this.isDead()) {
+        this.playAnimation(this.IMAGES_DEAD_POISON);
+      }
+      else if (
         this.world.keyboard.RIGHT ||
         this.world.keyboard.LEFT ||
         this.world.keyboard.UP ||
         this.world.keyboard.DOWN
       ) {
         this.playAnimation(this.IMAGES_SWIM);
-      }
-      else{
+      } else {
         this.playAnimation(this.IMAGES_IDLE);
       }
     }, 100);
-  }
-
-  jump() {}
+  } 
 }
