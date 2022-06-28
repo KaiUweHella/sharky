@@ -21,7 +21,11 @@ class DrawableObject {
   }
 
   draw(ctx) {
-    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    if (this instanceof Character) {
+      ctx.drawImage(this.img, this.sx, this.sy, this.sw, this.sh, this.x, this.y, this.width, this.height);
+    } else {
+      ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
   }
 
   drawFrame(ctx) {

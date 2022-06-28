@@ -1,6 +1,10 @@
 class Character extends MovableObject {
-  height = 240;
-  width = 240;
+  sx = 100;
+  sy = 450;
+  sw = 600;
+  sh = 340;
+  height = 80;
+  width = 140;
   speed = 5;
   y = 100;
   IMAGES_ATTACK_BUBBLE = [
@@ -14,26 +18,26 @@ class Character extends MovableObject {
     "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/8.png",
   ];
   IMAGES_DEAD_POISON = [
-    'img/1.Sharkie/6.dead/1.Poisoned/1.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/2.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/3.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/4.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/5.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/6.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/7.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/8.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/9.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/10.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/11.png',
-    'img/1.Sharkie/6.dead/1.Poisoned/12.png',
+    "img/1.Sharkie/6.dead/1.Poisoned/1.png",
+    "img/1.Sharkie/6.dead/1.Poisoned/2.png",
+    "img/1.Sharkie/6.dead/1.Poisoned/3.png",
+    "img/1.Sharkie/6.dead/1.Poisoned/4.png",
+    "img/1.Sharkie/6.dead/1.Poisoned/5.png",
+    "img/1.Sharkie/6.dead/1.Poisoned/6.png",
+    "img/1.Sharkie/6.dead/1.Poisoned/7.png",
+    "img/1.Sharkie/6.dead/1.Poisoned/8.png",
+    "img/1.Sharkie/6.dead/1.Poisoned/9.png",
+    "img/1.Sharkie/6.dead/1.Poisoned/10.png",
+    "img/1.Sharkie/6.dead/1.Poisoned/11.png",
+    "img/1.Sharkie/6.dead/1.Poisoned/12.png",
   ];
   IMAGES_POISON_HURT = [
-    'img/1.Sharkie/5.Hurt/1.Poisoned/1.png',
-    'img/1.Sharkie/5.Hurt/1.Poisoned/2.png',
-    'img/1.Sharkie/5.Hurt/1.Poisoned/3.png',
-    'img/1.Sharkie/5.Hurt/1.Poisoned/4.png',
-    'img/1.Sharkie/5.Hurt/1.Poisoned/5.png',
-  ]
+    "img/1.Sharkie/5.Hurt/1.Poisoned/1.png",
+    "img/1.Sharkie/5.Hurt/1.Poisoned/2.png",
+    "img/1.Sharkie/5.Hurt/1.Poisoned/3.png",
+    "img/1.Sharkie/5.Hurt/1.Poisoned/4.png",
+    "img/1.Sharkie/5.Hurt/1.Poisoned/5.png",
+  ];
   // IMAGES_ATTACK = [
   //   'img/1.Sharkie/4.Attack/Fin slap/1.png',
   //   'img/1.Sharkie/4.Attack/Fin slap/2.png',
@@ -87,7 +91,7 @@ class Character extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
+    this.Animation_Swim = setInterval(() => {
       this.swim_sound.volume = 0.8;
       this.swim_sound.pause();
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -100,28 +104,28 @@ class Character extends MovableObject {
         this.otherDirection = true;
         this.swim_sound.play();
       }
-      if (this.world.keyboard.UP && this.y > -60) {
+      if (this.world.keyboard.UP && this.y > 0) {
         this.y -= this.speed;
         this.swim_sound.play();
       }
-      if (this.world.keyboard.DOWN && this.y < this.world.level.level_end_y) {
+      if (this.world.keyboard.DOWN && this.y < 400) {
         this.y += this.speed;
         this.swim_sound.play();
       }
       this.world.camera_x = -this.x + 50;
     }, 1000 / 60);
 
-    setInterval(() => {
+    this.Animation_Attack = setInterval(() => {
       if (this.world.keyboard.SPACE) {
         this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
-      }
-      else if (this.isHurt()) {
+      } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_POISON_HURT);
-      }
-      else if (this.isDead()) {
+      } else if (this.isDead()) {
+        // setTimeout(() => {
+        //   this.continueAnimating = false;
+        // }, 600);
         this.playAnimation(this.IMAGES_DEAD_POISON);
-      }
-      else if (
+      } else if (
         this.world.keyboard.RIGHT ||
         this.world.keyboard.LEFT ||
         this.world.keyboard.UP ||
@@ -132,5 +136,5 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_IDLE);
       }
     }, 100);
-  } 
+  }
 }
