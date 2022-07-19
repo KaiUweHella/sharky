@@ -1,12 +1,12 @@
 class Character extends MovableObject {
   sx = 100;
-  sy = 450;
+  sy = 420;
   sw = 600;
-  sh = 340;
-  height = 80;
-  width = 140;
+  sh = 400;
+  height = this.sh / 4;
+  width = this.sw / 4;
   speed = 5;
-  y = 100;
+  y = 200;
   IMAGES_ATTACK_BUBBLE = [
     "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/1.png",
     "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/2.png",
@@ -121,9 +121,9 @@ class Character extends MovableObject {
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_POISON_HURT);
       } else if (this.isDead()) {
-        // setTimeout(() => {
-        //   this.continueAnimating = false;
-        // }, 600);
+        if (this.sy == 420) {
+         this.extendOutcut();
+        }
         this.playAnimation(this.IMAGES_DEAD_POISON);
       } else if (
         this.world.keyboard.RIGHT ||
@@ -136,5 +136,14 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_IDLE);
       }
     }, 100);
+  }
+
+  extendOutcut(){
+    let a = 200;
+    let b = 360;
+    this.sy = this.sy - a;
+    this.sh = this.sh + b;
+    this.height = this.height + (b / 4);
+    this.y = this.y - (a / 4);
   }
 }

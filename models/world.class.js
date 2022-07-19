@@ -90,7 +90,7 @@ class World {
 
   checkThrowObjects(){
     if(this.keyboard.SPACE){
-      let bubble = new ThrowableObject(this.character.x, this.character.y);
+      let bubble = new ThrowableObject(this.character.x, this.character.y, this.character.width, this.character.height);
       this.throwableObjects.push(bubble);
     }
   }

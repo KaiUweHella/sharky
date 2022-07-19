@@ -4,7 +4,6 @@ class MovableObject extends DrawableObject{
   energy = 100;
   lastHit = 0;
   energy = 100;
-  // continueAnimating = true;
 
   moveLeft() {
     setInterval(() => {
@@ -13,11 +12,17 @@ class MovableObject extends DrawableObject{
   }
 
   playAnimation(images) {
-    // if(!this.continueAnimating){return;}
-    let i = this.currentImage % images.length; // let i = 0 % 6; // i = 0, 1, 2, 3, 4, 5, 0, 1, ...
+    let i = this.currentImage % images.length; // let i = 0 % 6; // i = 0, 1, 2, 3, 4, 5, 0, 1, ...    
     let path = images[i];
+    let lastImg = images.length - 1;
+
     this.img = this.imageCache[path];
-    this.currentImage++;
+
+    if(this.isDead() && this.currentImage >= lastImg){
+      this.currentImage = lastImg;
+    } else {
+      this.currentImage++;
+    }
   }
 
   isColliding(mo) {
