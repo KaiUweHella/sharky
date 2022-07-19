@@ -94,10 +94,8 @@ class World {
     this.throwableObjects.forEach((bubble) => {
       this.level.enemies.forEach((enemy) => {
         if (bubble.isColliding(enemy) && !bubble.collidedEnemy) {
-          console.log("Yes");
           bubble.collidedEnemy = true;
           enemy.hitBubble = true;
-          console.log(bubble.collidedEnemy);
         }
       });
     });

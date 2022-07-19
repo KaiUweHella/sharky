@@ -1,5 +1,6 @@
 class ThrowableObject extends MovableObject {
   collidedBubble = false;
+  x;
 
   constructor(x, y) {
     super().loadImage("img/1.Sharkie/4.Attack/Bubble trap/Bubble.png");
@@ -11,8 +12,11 @@ class ThrowableObject extends MovableObject {
   }
 
   throw() {
+    if (world.character.otherDirection){
+      this.x = this.x - 150;
+    }
     setInterval(() => {
-      if (this.otherDirection) {
+      if (world.character.otherDirection) {
         this.x -= 6;
       } else {
         this.x += 6;
