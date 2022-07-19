@@ -1,17 +1,31 @@
 class ThrowableObject extends MovableObject {
-  constructor(x, y, width, height) {
+  collidedBubble = false;
+
+  constructor(x, y) {
     super().loadImage("img/1.Sharkie/4.Attack/Bubble trap/Bubble.png");
-    this.x = x + width;
-    this.y = y + height / 3;
-    console.log(this.width);
-    this.height = 40;
-    this.width = 40;
+    this.x = x + 150;
+    this.y = y + 56;
+    this.height = 25;
+    this.width = 25;
     this.throw();
   }
 
   throw() {
     setInterval(() => {
-      this.x += 10;
+      if (this.otherDirection) {
+        this.x -= 6;
+      } else {
+        this.x += 6;
+      }
     }, 1000 / 60);
+  }
+
+  bubbleIsColliding(enemy) {
+    return (
+      this.x + this.width > enemy.x &&
+      this.y + this.height > enemy.y &&
+      this.x < enemy.x + enemy.width &&
+      this.y < enemy.y + enemy.height
+    );
   }
 }

@@ -1,12 +1,13 @@
 class Character extends MovableObject {
-  sx = 100;
+  sx = 60;
   sy = 420;
-  sw = 600;
+  sw = 630;
   sh = 400;
   height = this.sh / 4;
   width = this.sw / 4;
   speed = 5;
   y = 200;
+  lastBubble = 0;
   IMAGES_ATTACK_BUBBLE = [
     "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/1.png",
     "img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/2.png",
@@ -118,11 +119,14 @@ class Character extends MovableObject {
     this.Animation_Attack = setInterval(() => {
       if (this.world.keyboard.SPACE) {
         this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
+        if (this.sy == 420) {
+          this.attackOutcut();
+        }
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_POISON_HURT);
       } else if (this.isDead()) {
         if (this.sy == 420) {
-         this.extendOutcut();
+          this.isDeadOutcut();
         }
         this.playAnimation(this.IMAGES_DEAD_POISON);
       } else if (
@@ -138,12 +142,36 @@ class Character extends MovableObject {
     }, 100);
   }
 
-  extendOutcut(){
+  isDeadOutcut() {
     let a = 200;
     let b = 360;
     this.sy = this.sy - a;
     this.sh = this.sh + b;
-    this.height = this.height + (b / 4);
-    this.y = this.y - (a / 4);
+    this.height = this.height + b / 4;
+    this.y = this.y - a / 4;
+  }
+
+  attackOutcut() {
+    let a = 80;
+    let b = 60;
+    let c = 80;
+    this.sy = this.sy - a;
+    this.sh = this.sh + b;
+    this.height = this.height + b / 4;
+    this.y = this.y - a / 4;
+    this.sw = this.sw + c;
+    this.width = this.width + c / 4;
+  }
+
+  normalOutCut() {
+    let a = 80;
+    let b = 60;
+    let c = 80;
+    this.sy = this.sy + a;
+    this.sh = this.sh - b;
+    this.height = this.height - b / 4;
+    this.y = this.y + a / 4;
+    this.sw = this.sw - c;
+    this.width = this.width - c / 4;
   }
 }

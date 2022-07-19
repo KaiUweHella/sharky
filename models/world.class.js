@@ -32,7 +32,7 @@ class World {
     this.addObjectsToMap(this.level.lights);
     this.addObjectsToMap(this.throwableObjects);
 
-    this.ctx.translate(-this.camera_x, 0); 
+    this.ctx.translate(-this.camera_x, 0);
     // space for fixed objects
     this.addToMap(this.statusBar);
 
@@ -72,27 +72,46 @@ class World {
     this.ctx.restore();
   }
 
-  swim(){
+  swim() {
     setInterval(() => {
       this.checkCollisions();
       this.checkThrowObjects();
     }, 200);
   }
 
-  checkCollisions(){
-    this.level.enemies.forEach( (enemy) => {
-      if(this.character.isColliding(enemy)){
-        this.character.hit();
-        this.statusBar.setPercentage(this.character.energy);
+  checkCollisions() {
+    this.level.enemies.forEach((enemy) => {
+      if (this.character.isColliding(enemy)) {
+        if (enemy.hitBubble) {
+          return
+        } else {
+          this.character.hit();
+          this.statusBar.setPercentage(this.character.energy);
+        }
       }
+    });
+
+    this.throwableObjects.forEach((bubble) => {
+      this.level.enemies.forEach((enemy) => {
+        if (bubble.isColliding(enemy) && !bubble.collidedEnemy) {
+          console.log("Yes");
+          bubble.collidedEnemy = true;
+          enemy.hitBubble = true;
+          console.log(bubble.collidedEnemy);
+        }
+      });
     });
   }
 
-  checkThrowObjects(){
-    if(this.keyboard.SPACE){
-      let bubble = new ThrowableObject(this.character.x, this.character.y, this.character.width, this.character.height);
-      this.throwableObjects.push(bubble);
+  checkThrowObjects() {
+    if (this.keyboard.SPACE) {
+      setTimeout(() => {
+        let bubble = new ThrowableObject(
+          this.character.x,
+          this.character.y,
+        );
+        this.throwableObjects.push(bubble);
+      }, 700);
     }
   }
-
 }

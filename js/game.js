@@ -42,5 +42,6 @@ document.addEventListener("keyup", (e) => {
   }
   if (e.keyCode == 32) {
     keyboard.SPACE = false;
+    world.character.normalOutCut();
   }
 });
