@@ -1,4 +1,4 @@
-class MovableObject extends DrawableObject{
+class MovableObject extends DrawableObject {
   speed = 0.15;
   otherDirection = false;
   energy = 100;
@@ -12,13 +12,13 @@ class MovableObject extends DrawableObject{
   }
 
   playAnimation(images) {
-    let i = this.currentImage % images.length; // let i = 0 % 6; // i = 0, 1, 2, 3, 4, 5, 0, 1, ...    
+    let i = this.currentImage % images.length; // let i = 0 % 6; // i = 0, 1, 2, 3, 4, 5, 0, 1, ...
     let path = images[i];
     let lastImg = images.length - 1;
 
     this.img = this.imageCache[path];
 
-    if(this.isDead() && this.currentImage >= lastImg){
+    if (this.isDead() && this.currentImage >= lastImg) {
       this.currentImage = lastImg;
     } else {
       this.currentImage++;
@@ -26,10 +26,12 @@ class MovableObject extends DrawableObject{
   }
 
   playAnimationAttack(images) {
-    let i = this.currentImage % images.length; // let i = 0 % 6; // i = 0, 1, 2, 3, 4, 5, 0, 1, ...    
-    let path = images[i];
-
-    this.img = this.imageCache[path];
+      setInterval(() => {
+        let i = this.currentImage % images.length; // let i = 0 % 6; // i = 0, 1, 2, 3, 4, 5, 0, 1, ...
+        let path = images[i];
+        this.img = this.imageCache[path];
+      }, 100);
+    
   }
 
   isColliding(mo) {
@@ -41,29 +43,32 @@ class MovableObject extends DrawableObject{
     );
   }
 
-  hit(){
+  hit() {
     this.energy -= 5;
-    if(this.energy < 0){
+    if (this.energy < 0) {
       this.energy = 0;
     } else {
       this.lastHit = new Date().getTime();
     }
   }
 
-  isHurt(){
+  isHurt() {
     let timepassed = new Date().getTime() - this.lastHit;
     timepassed = timepassed / 1000;
-    return timepassed < .5;
+    return timepassed < 0.5;
   }
 
-  isDead(){
+  isDead() {
     return this.energy == 0;
   }
-  
+
   checkThrowObjects() {
     if (this.world.keyboard.SPACE) {
       setTimeout(() => {
-        let bubble = new ThrowableObject(this.world.character.x, this.world.character.y);
+        let bubble = new ThrowableObject(
+          this.world.character.x,
+          this.world.character.y
+        );
         this.world.throwableObjects.push(bubble);
       }, 700);
     }

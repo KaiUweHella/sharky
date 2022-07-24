@@ -117,13 +117,8 @@ class Character extends MovableObject {
     }, 1000 / 60);
 
     this.Animation_Attack = setInterval(() => {
-      if (
-        this.world.keyboard.SPACE &&
-        this.world.coinBar.coinCounter >= 1
-      ) {
-        for (let i = 0; i < this.IMAGES_ATTACK_BUBBLE.length; i++) {
-          this.playAnimationAttack(this.IMAGES_ATTACK_BUBBLE);
-        }
+      if (this.world.keyboard.SPACE && this.world.coinBar.coinCounter >= 1) {
+        this.playAnimationAttack(this.IMAGES_ATTACK_BUBBLE);
         this.checkThrowObjects();
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_POISON_HURT);
