@@ -22,6 +22,9 @@ document.addEventListener("keydown", (e) => {
   if (e.keyCode == 40 || e.keyCode == 83) {
     keyboard.DOWN = true;
   }
+});
+
+document.addEventListener("keypress", (e) => {
   if (e.keyCode == 32) {
     keyboard.SPACE = true;
   }
@@ -42,6 +45,5 @@ document.addEventListener("keyup", (e) => {
   }
   if (e.keyCode == 32) {
     keyboard.SPACE = false;
-    world.character.normalOutCut();
   }
 });

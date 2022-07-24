@@ -25,6 +25,13 @@ class MovableObject extends DrawableObject{
     }
   }
 
+  playAnimationAttack(images) {
+    let i = this.currentImage % images.length; // let i = 0 % 6; // i = 0, 1, 2, 3, 4, 5, 0, 1, ...    
+    let path = images[i];
+
+    this.img = this.imageCache[path];
+  }
+
   isColliding(mo) {
     return (
       this.x + this.width > mo.x &&
@@ -51,5 +58,15 @@ class MovableObject extends DrawableObject{
 
   isDead(){
     return this.energy == 0;
+  }
+  
+  checkThrowObjects() {
+    if (this.world.keyboard.SPACE) {
+      setTimeout(() => {
+        let bubble = new ThrowableObject(this.world.character.x, this.world.character.y);
+        this.world.throwableObjects.push(bubble);
+      }, 700);
+    }
+    this.world.coinBar.coinCounter--;
   }
 }

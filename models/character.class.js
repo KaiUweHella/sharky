@@ -117,11 +117,14 @@ class Character extends MovableObject {
     }, 1000 / 60);
 
     this.Animation_Attack = setInterval(() => {
-      if (this.world.keyboard.SPACE) {
-        this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
-        if (this.sy == 420 ) {
-          this.attackOutcut();
+      if (
+        this.world.keyboard.SPACE &&
+        this.world.coinBar.coinCounter >= 1
+      ) {
+        for (let i = 0; i < this.IMAGES_ATTACK_BUBBLE.length; i++) {
+          this.playAnimationAttack(this.IMAGES_ATTACK_BUBBLE);
         }
+        this.checkThrowObjects();
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_POISON_HURT);
       } else if (this.isDead()) {

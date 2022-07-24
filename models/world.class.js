@@ -78,7 +78,6 @@ class World {
   swim() {
     setInterval(() => {
       this.checkCollisions();
-      this.checkThrowObjects();
     }, 200);
   }
 
@@ -117,14 +116,5 @@ class World {
   deletCoin(coin) {
     let indexCurrentCoin = this.level.coins.indexOf(coin); // get index of the coin that was hit
     this.level.coins.splice(indexCurrentCoin, 1); // splice coin from array of coins
-  }
-
-  checkThrowObjects() {
-    if (this.keyboard.SPACE) {
-      setTimeout(() => {
-        let bubble = new ThrowableObject(this.character.x, this.character.y);
-        this.throwableObjects.push(bubble);
-      }, 700);
-    }
   }
 }

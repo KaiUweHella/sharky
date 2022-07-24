@@ -3,6 +3,7 @@ class Coins extends DrawableObject {
   width = 40;
   posY = 0;
   changeDirection = false;
+  collidedCharacter = false;
 
   IMAGES_COIN = ["img/4. Marcadores/1. Coins/1.png"];
 
