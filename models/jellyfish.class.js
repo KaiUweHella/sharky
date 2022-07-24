@@ -21,10 +21,10 @@ class JellyFish extends MovableObject {
     this.loadImages(this.IMAGES_REGULAR);
     this.loadImages(this.IMAGES_BUBBLE_ATTACK);
 
-    this.x = 400 + Math.random() * 1000; //zahl zwischen 200 und 700
+    this.x = 400 + Math.random() * 1000; //zahl zwischen 400 und 1400
     this.speed = 0.15 + Math.random() * 0.25;
 
-    this.y = 0 + Math.random() * 460; //zahl zwischen 200 und 700
+    this.y = 0 + Math.random() * 360; //zahl zwischen 0 und 360
 
     this.animate();
   }

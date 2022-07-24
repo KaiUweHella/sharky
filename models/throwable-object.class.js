@@ -12,15 +12,14 @@ class ThrowableObject extends MovableObject {
   }
 
   throw() {
-    if (world.character.otherDirection){
-      this.x = this.x - 150;
-    }
+    // if (world.character.otherDirection){
+    //   this.x = this.x - 150;
+    // }
     setInterval(() => {
-      if (world.character.otherDirection) {
-        this.x -= 6;
-      } else {
+      // if (world.character.otherDirection) {
+      //   this.x -= 6;
+      // } 
         this.x += 6;
-      }
     }, 1000 / 60);
   }
 

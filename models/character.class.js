@@ -119,7 +119,7 @@ class Character extends MovableObject {
     this.Animation_Attack = setInterval(() => {
       if (this.world.keyboard.SPACE) {
         this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
-        if (this.sy == 420) {
+        if (this.sy == 420 ) {
           this.attackOutcut();
         }
       } else if (this.isHurt()) {

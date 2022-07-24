@@ -6,6 +6,7 @@ class World {
   keyboard;
   camera_x = 0;
   statusBar = new StatusBar();
+  coinBar = new CoinBar();
   throwableObjects = [];
 
   constructor(canvas, keyboard) {
@@ -29,12 +30,14 @@ class World {
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.enemies);
+    this.addObjectsToMap(this.level.coins);
     this.addObjectsToMap(this.level.lights);
     this.addObjectsToMap(this.throwableObjects);
 
     this.ctx.translate(-this.camera_x, 0);
     // space for fixed objects
     this.addToMap(this.statusBar);
+    this.addToMap(this.coinBar);
 
     //draw wird immer wieder aufgerufen
     let self = this;
@@ -83,11 +86,21 @@ class World {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
         if (enemy.hitBubble) {
-          return
+          return;
         } else {
           this.character.hit();
           this.statusBar.setPercentage(this.character.energy);
         }
+      }
+    });
+
+    this.level.coins.forEach((coin) => {
+      if (this.character.isColliding(coin) && !coin.collidedCharacter) {
+        this.coinBar.coinCounter++;
+        coin.collidedCharacter = true;
+        this.coinBar.setCounter(this.coinBar.coinCounter);
+        this.deletCoin(coin);
+        console.log(this.coinBar.coinCounter);
       }
     });
 
@@ -101,13 +114,15 @@ class World {
     });
   }
 
+  deletCoin(coin) {
+    let indexCurrentCoin = this.level.coins.indexOf(coin); // get index of the coin that was hit
+    this.level.coins.splice(indexCurrentCoin, 1); // splice coin from array of coins
+  }
+
   checkThrowObjects() {
     if (this.keyboard.SPACE) {
       setTimeout(() => {
-        let bubble = new ThrowableObject(
-          this.character.x,
-          this.character.y,
-        );
+        let bubble = new ThrowableObject(this.character.x, this.character.y);
         this.throwableObjects.push(bubble);
       }, 700);
     }

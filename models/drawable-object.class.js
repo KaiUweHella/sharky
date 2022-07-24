@@ -22,7 +22,17 @@ class DrawableObject {
 
   draw(ctx) {
     if (this instanceof Character) {
-      ctx.drawImage(this.img, this.sx, this.sy, this.sw, this.sh, this.x, this.y, this.width, this.height);
+      ctx.drawImage(
+        this.img,
+        this.sx,
+        this.sy,
+        this.sw,
+        this.sh,
+        this.x,
+        this.y,
+        this.width,
+        this.height
+      );
     } else {
       ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
@@ -32,7 +42,8 @@ class DrawableObject {
     if (
       this instanceof Character ||
       this instanceof JellyFish ||
-      this instanceof Endboss
+      this instanceof Endboss ||
+      this instanceof Coins
     ) {
       ctx.beginPath();
       ctx.lineWidth = "6";
