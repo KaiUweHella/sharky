@@ -78,5 +78,6 @@ class MovableObject extends DrawableObject {
       }, 700);
     }
     this.world.coinBar.coinCounter--;
+    this.world.coinBar.setCounter(this.world.coinBar.coinCounter);
   }
 }
