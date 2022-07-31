@@ -25,13 +25,18 @@ class MovableObject extends DrawableObject {
     }
   }
 
-  playAnimationAttack(images) {
-      setInterval(() => {
-        let i = this.currentImage % images.length; // let i = 0 % 6; // i = 0, 1, 2, 3, 4, 5, 0, 1, ...
-        let path = images[i];
-        this.img = this.imageCache[path];
-      }, 100);
-    
+  playAnimationOnce(images, interval) {
+    let i = this.currentImage % images.length; // let i = 0 % 6; // i = 0, 1, 2, 3, 4, 5, 0, 1, ...
+    let path = images[i];
+    let lastImg = images.length - 1;
+
+    this.img = this.imageCache[path];
+
+    if (this.currentImage >= lastImg) {
+      clearInterval(interval);
+    } else {
+      this.currentImage++;
+    }
   }
 
   isColliding(mo) {

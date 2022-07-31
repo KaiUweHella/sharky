@@ -93,6 +93,9 @@ class Character extends MovableObject {
 
   animate() {
     this.Animation_Swim = setInterval(() => {
+      if (this.x == 1100) {
+        this.atEndboss = true;
+      }
       this.swim_sound.volume = 0.8;
       this.swim_sound.pause();
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -118,7 +121,12 @@ class Character extends MovableObject {
 
     this.Animation_Attack = setInterval(() => {
       if (this.world.keyboard.SPACE && this.world.coinBar.coinCounter >= 1) {
-        this.playAnimationAttack(this.IMAGES_ATTACK_BUBBLE);
+        let attackInterval = setInterval(() => {
+          this.playAnimationOnce(
+            this.IMAGES_ATTACK_BUBBLE,
+            attackInterval
+          );
+        }, 100);
         this.checkThrowObjects();
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_POISON_HURT);
@@ -126,7 +134,12 @@ class Character extends MovableObject {
         if (this.sy == 420) {
           this.isDeadOutcut();
         }
-        this.playAnimation(this.IMAGES_DEAD_POISON);
+        let deadAnimationInterval = setInterval(() => {
+          this.playAnimationOnce(
+            this.IMAGES_DEAD_POISON,
+            deadAnimationInterval
+          );
+        }, 100);
       } else if (
         this.world.keyboard.RIGHT ||
         this.world.keyboard.LEFT ||

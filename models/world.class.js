@@ -1,5 +1,6 @@
 class World {
   character = new Character();
+  endboss = level_1.enemies[level_1.enemies.length - 1];
   level = level_1;
   canvas;
   ctx;
@@ -16,6 +17,7 @@ class World {
     this.draw();
     this.setWorld();
     this.swim();
+    
   }
 
   setWorld() {
@@ -78,6 +80,7 @@ class World {
   swim() {
     setInterval(() => {
       this.checkCollisions();
+      this.checkDistanceToEndboss();
     }, 200);
   }
 
@@ -112,6 +115,16 @@ class World {
       });
     });
   }
+
+  checkDistanceToEndboss() {
+    let distanceEndboss = this.endboss.x - this.character.x;
+    if (distanceEndboss < 450) {
+        this.endboss.nearCharacter = true;
+    } else {
+        this.endboss.nearCharacter = false;
+    }
+}
+
 
   deletCoin(coin) {
     let indexCurrentCoin = this.level.coins.indexOf(coin); // get index of the coin that was hit

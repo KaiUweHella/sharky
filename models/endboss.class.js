@@ -2,7 +2,22 @@ class Endboss extends MovableObject {
   height = 450;
   width = 450;
   y = -30;
+  x = 1400;
+  playIntro = false;
+  nearCharacter = false;
 
+  IMAGES_INTRODUCE = [
+    "img/2.Enemy/3 Final Enemy/1.Introduce/1.png",
+    "img/2.Enemy/3 Final Enemy/1.Introduce/2.png",
+    "img/2.Enemy/3 Final Enemy/1.Introduce/3.png",
+    "img/2.Enemy/3 Final Enemy/1.Introduce/4.png",
+    "img/2.Enemy/3 Final Enemy/1.Introduce/5.png",
+    "img/2.Enemy/3 Final Enemy/1.Introduce/6.png",
+    "img/2.Enemy/3 Final Enemy/1.Introduce/7.png",
+    "img/2.Enemy/3 Final Enemy/1.Introduce/8.png",
+    "img/2.Enemy/3 Final Enemy/1.Introduce/9.png",
+    "img/2.Enemy/3 Final Enemy/1.Introduce/10.png",
+  ];
   IMAGES_REGULAR = [
     "img/2.Enemy/3 Final Enemy/2.floating/1.png",
     "img/2.Enemy/3 Final Enemy/2.floating/2.png",
@@ -18,17 +33,47 @@ class Endboss extends MovableObject {
     "img/2.Enemy/3 Final Enemy/2.floating/12.png",
     "img/2.Enemy/3 Final Enemy/2.floating/13.png",
   ];
+  IMAGES_ATTACK = [
+    "img/2.Enemy/3 Final Enemy/Attack/1.png",
+    "img/2.Enemy/3 Final Enemy/Attack/2.png",
+    "img/2.Enemy/3 Final Enemy/Attack/3.png",
+    "img/2.Enemy/3 Final Enemy/Attack/4.png",
+    "img/2.Enemy/3 Final Enemy/Attack/5.png",
+    "img/2.Enemy/3 Final Enemy/Attack/6.png",
+  ];
+  IMAGES_HURT = [
+    "img/2.Enemy/3 Final Enemy/Hurt/1.png",
+    "img/2.Enemy/3 Final Enemy/Hurt/2.png",
+    "img/2.Enemy/3 Final Enemy/Hurt/3.png",
+    "img/2.Enemy/3 Final Enemy/Hurt/4.png",
+  ];
+  IMAGES_DEAD = [
+    "img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2.png",
+    "img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 6.png",
+    "img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 7.png",
+    "img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 8.png",
+    "img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png",
+    "img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png",
+  ]
 
   constructor() {
     super().loadImage("../img/2.Enemy/3 Final Enemy/1.Introduce/1.png");
+    this.loadImages(this.IMAGES_INTRODUCE);
     this.loadImages(this.IMAGES_REGULAR);
-    this.x = 1400;
+    this.loadImages(this.IMAGES_ATTACK);
     this.animate();
   }
 
   animate() {
     setInterval(() => {
-      this.playAnimation(this.IMAGES_REGULAR);
+      if (this.nearCharacter && !this.playIntro) {
+        let introIntervall = setInterval(() => {
+          this.playAnimationOnce(this.IMAGES_INTRODUCE, introIntervall);
+        }, 200);
+        this.playIntro = true;
+      } else if (this.playIntro) {
+        this.playAnimation(this.IMAGES_REGULAR);
+      }
     }, 200);
   }
 }
