@@ -3,8 +3,10 @@ class Endboss extends MovableObject {
   width = 450;
   y = -30;
   x = 1400;
+  energy = 25;
   playIntro = false;
   nearCharacter = false;
+  bubbleHit = false;
 
   IMAGES_INTRODUCE = [
     "img/2.Enemy/3 Final Enemy/1.Introduce/1.png",
@@ -54,13 +56,15 @@ class Endboss extends MovableObject {
     "img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 8.png",
     "img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png",
     "img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png",
-  ]
+  ];
 
   constructor() {
     super().loadImage("../img/2.Enemy/3 Final Enemy/1.Introduce/1.png");
     this.loadImages(this.IMAGES_INTRODUCE);
     this.loadImages(this.IMAGES_REGULAR);
     this.loadImages(this.IMAGES_ATTACK);
+    this.loadImages(this.IMAGES_DEAD);
+    this.loadImages(this.IMAGES_HURT);
     this.animate();
   }
 
@@ -71,6 +75,13 @@ class Endboss extends MovableObject {
           this.playAnimationOnce(this.IMAGES_INTRODUCE, introIntervall);
         }, 200);
         this.playIntro = true;
+      } else if (this.isHurt()) {
+        this.playAnimation(this.IMAGES_HURT);
+      } 
+      else if (this.isDead()) {
+        let deadEndbossIntervall = setInterval(() => {
+          this.playAnimationOnce(this.IMAGES_DEAD, deadEndbossIntervall);
+        }, 100);
       } else if (this.playIntro) {
         this.playAnimation(this.IMAGES_REGULAR);
       }

@@ -68,15 +68,14 @@ class MovableObject extends DrawableObject {
   }
 
   checkThrowObjects() {
-    if (this.world.keyboard.SPACE) {
-      setTimeout(() => {
-        let bubble = new ThrowableObject(
-          this.world.character.x,
-          this.world.character.y
-        );
-        this.world.throwableObjects.push(bubble);
-      }, 700);
-    }
+    setTimeout(() => {
+      let bubble = new ThrowableObject(
+        this.world.character.x,
+        this.world.character.y
+      );
+      this.world.throwableObjects.push(bubble);
+    }, 400);
+
     this.world.coinBar.coinCounter--;
     this.world.coinBar.setCounter(this.world.coinBar.coinCounter);
   }

@@ -101,7 +101,7 @@ class World {
         this.coinBar.coinCounter++;
         coin.collidedCharacter = true;
         this.coinBar.setCounter(this.coinBar.coinCounter);
-        this.deletCoin(coin);
+        this.deleteCoin(coin);
         console.log(this.coinBar.coinCounter);
       }
     });
@@ -111,6 +111,13 @@ class World {
         if (bubble.isColliding(enemy) && !bubble.collidedEnemy) {
           bubble.collidedEnemy = true;
           enemy.hitBubble = true;
+          this.deleteBubble(bubble); 
+        }
+        if (bubble.isColliding(this.endboss) && !bubble.collidedEnemy){
+          this.endboss.hit();
+          bubble.collidedEnemy = true;
+          this.deleteBubble(bubble); 
+          console.log(this.endboss.energy);
         }
       });
     });
@@ -126,8 +133,13 @@ class World {
 }
 
 
-  deletCoin(coin) {
+  deleteCoin(coin) {
     let indexCurrentCoin = this.level.coins.indexOf(coin); // get index of the coin that was hit
     this.level.coins.splice(indexCurrentCoin, 1); // splice coin from array of coins
+  }
+
+  deleteBubble(bubble) {
+    let indexCurrentCoin = this.throwableObjects.indexOf(bubble); // get index of the coin that was hit
+    this.throwableObjects.splice(indexCurrentCoin, 1); // splice coin from array of coins
   }
 }
