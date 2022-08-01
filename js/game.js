@@ -7,7 +7,14 @@ function init() {
   world = new World(canvas, keyboard);
 
   console.log(world.character);
+  hideStartBtn();
 }
+
+function hideStartBtn(){
+  document.getElementById("start-button").classList.add("d-none");
+}
+
+
 
 document.addEventListener("keydown", (e) => {
   if (e.keyCode == 37 || e.keyCode == 65) {

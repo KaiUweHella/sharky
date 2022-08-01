@@ -5,10 +5,10 @@ class Coins extends DrawableObject {
   changeDirection = false;
   collidedCharacter = false;
 
-  IMAGES_COIN = ["img/4. Marcadores/1. Coins/1.png"];
+  IMAGES_COIN = ["img/4.Marcadores/Coins/1.png"];
 
   constructor() {
-    super().loadImage("../img/4. Marcadores/1. Coins/1.png");
+    super().loadImage("../img/4.Marcadores/Coins/1.png");
     this.loadImages(this.IMAGES_COIN);
 
     this.x = 400 + Math.random() * 1000; //zahl zwischen 400 und 1400

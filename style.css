@@ -1,9 +1,170 @@
-body{
+:root {
+  --triangle-color: #531a82;
+  --triangle-bg: #7fffe0;
+}
+
+body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Mouse Memoirs", sans-serif;
+  background-image: url("img/3.Background/Dark/1.png");
+  color: white;
+  font-size: 1.5rem;
+  min-height: 100vh;
+  margin: 0;
+}
+
+canvas {
+  background-image: url("img/3.Background/Dark/1.png");
+  background-size: cover;
+  display: block;
+}
+
+h1{
+    margin: 1rem;
+}
+
+.canvas {
+  position: relative;
+}
+
+.canvas img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14rem;
+  transition: width 0.2s;
+  cursor: pointer;
+}
+
+.canvas img:hover {
+  width: 15rem;
+}
+
+.d-none {
+  display: none;
+}
+
+.action-keys {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: min(720px, 100%);
+  margin: 1rem;
+}
+
+.keys {
+  display: grid;
+  gap: 1rem;
+
+  grid-template-areas:
+    ". up ."
+    "left down right";
+}
+
+.key-btn {
+  background-color: var(--triangle-bg);
+  border: 2px solid white;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.keys .key-up {
+  grid-area: up;
+}
+.keys .key-down {
+  grid-area: down;
+}
+.keys .key-left {
+  grid-area: left;
+}
+.keys .key-right {
+  grid-area: right;
+}
+
+.triangle-up {
+  width: 0px;
+  height: 0px;
+  -webkit-transform: rotate(360deg);
+  border-style: solid;
+  border-width: 0 1rem 2rem 1rem;
+  border-color: transparent transparent var(--triangle-color) transparent;
+}
+
+.triangle-down {
+  width: 0px;
+  height: 0px;
+  -webkit-transform: rotate(360deg);
+  border-style: solid;
+  border-width: 2rem 1rem 0 1rem;
+  border-color: var(--triangle-color) transparent transparent transparent;
+}
+
+.triangle-left {
+  width: 0px;
+  height: 0px;
+  -webkit-transform: rotate(360deg);
+  border-style: solid;
+  border-width: 1rem 2rem 1rem 0;
+  border-color: transparent var(--triangle-color) transparent transparent;
+}
+
+.triangle-right {
+  width: 0px;
+  height: 0px;
+  -webkit-transform: rotate(360deg);
+  border-style: solid;
+  border-width: 1rem 0 1rem 2rem;
+  border-color: transparent transparent transparent var(--triangle-color);
+}
+
+.btn-space {
+  background-color: var(--triangle-bg);
+  border: 2px solid white;
+  font-family: "Mouse Memoirs", sans-serif;
+  border-radius: 1rem;
+  padding: 1rem;
+  color: var(--triangle-color);
+  font-size: clamp(1.5rem, 1.4rem + 0.5vw, 2rem);
+  height: min(4rem, 100%);
+}
+
+.btn-description{
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: .5rem;
 }
 
-canvas{
-    background-color: black;
+@media only screen and (max-width: 720px) {
+  canvas {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-height: 480px) {
+  canvas {
+    height: 100vh;
+  }
+
+  h1 {
+    position: absolute;
+    z-index: 1000;
+    top: 0.5rem;
+    right: 1rem;
+    margin: 0;
+  }
+
+  .action-keys{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    opacity: .6;
+    align-items: flex-end;
+  }
 }

@@ -34,7 +34,12 @@ class DrawableObject {
         this.height
       );
     } else {
+      try{
       ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    } catch(e){
+      console.warn('error', e);
+      console.log(this.img.src);
+    }
     }
   }
 
