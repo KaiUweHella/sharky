@@ -17,7 +17,10 @@ class World {
     this.draw();
     this.setWorld();
     this.swim();
-    
+  }
+
+  restart(){
+    this.ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
 
   setWorld() {

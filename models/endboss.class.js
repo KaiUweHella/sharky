@@ -77,14 +77,22 @@ class Endboss extends MovableObject {
         this.playIntro = true;
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
-      } 
-      else if (this.isDead()) {
+      } else if (this.isDead()) {
         let deadEndbossIntervall = setInterval(() => {
           this.playAnimationOnce(this.IMAGES_DEAD, deadEndbossIntervall);
         }, 100);
+        this.showEndscreen();
       } else if (this.playIntro) {
         this.playAnimation(this.IMAGES_REGULAR);
       }
     }, 200);
+  }
+
+  showEndscreen() {
+    document.getElementById("win").classList.remove("d-none");
+    document.getElementById("restart-button").classList.remove("d-none");
+    setTimeout(() => {
+      this.world.ctx = null;
+    }, 1000);
   }
 }

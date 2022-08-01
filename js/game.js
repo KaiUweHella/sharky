@@ -10,6 +10,10 @@ function init() {
   hideStartBtn();
 }
 
+function restart() {
+  window.location.replace("index.html");
+}
+
 function hideStartBtn(){
   document.getElementById("start-button").classList.add("d-none");
 }

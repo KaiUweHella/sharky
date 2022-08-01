@@ -122,10 +122,7 @@ class Character extends MovableObject {
     this.Animation_Attack = setInterval(() => {
       if (this.world.keyboard.SPACE && this.world.coinBar.coinCounter >= 1) {
         let attackInterval = setInterval(() => {
-          this.playAnimationOnce(
-            this.IMAGES_ATTACK_BUBBLE,
-            attackInterval
-          );
+          this.playAnimationOnce(this.IMAGES_ATTACK_BUBBLE, attackInterval);
         }, 100);
         this.checkThrowObjects();
       } else if (this.isHurt()) {
@@ -140,6 +137,7 @@ class Character extends MovableObject {
             deadAnimationInterval
           );
         }, 100);
+        this.showEndscreen();
       } else if (
         this.world.keyboard.RIGHT ||
         this.world.keyboard.LEFT ||
@@ -184,5 +182,13 @@ class Character extends MovableObject {
     this.y = this.y + a / 4;
     this.sw = this.sw - c;
     this.width = this.width - c / 4;
+  }
+
+  showEndscreen() {
+    document.getElementById("lose").classList.remove("d-none");
+    document.getElementById("restart-button").classList.remove("d-none");
+    setTimeout(() => {
+      this.world.ctx = null;
+    }, 1000);
   }
 }
