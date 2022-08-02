@@ -1,6 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let overlayActiv = false;
 
 function init() {
   canvas = document.getElementById("canvas");
@@ -14,11 +15,9 @@ function restart() {
   window.location.replace("index.html");
 }
 
-function hideStartBtn(){
+function hideStartBtn() {
   document.getElementById("start-button").classList.add("d-none");
 }
-
-
 
 document.addEventListener("keydown", (e) => {
   if (e.keyCode == 37 || e.keyCode == 65) {
@@ -58,3 +57,25 @@ document.addEventListener("keyup", (e) => {
     keyboard.SPACE = false;
   }
 });
+
+function openHelp() {
+  let text = document.getElementById("help-info");
+  let overlay = document.getElementById("overlay-help");
+
+  if (!overlayActiv) {
+    overlay.classList.remove("d-none");
+    console.log("ja");
+    text.innerHTML = "close";
+    overlayActiv = true;
+  } else {
+    overlay.classList.add("d-none");
+    text.innerHTML = "help";
+    overlayActiv = false;
+    console.log("nein");
+  }
+}
+
+function stopAllIntervals() {
+  var interval_id = window.setInterval(() => {}, 99999);
+  for (var i = 0; i < interval_id; i++) window.clearInterval(i);
+}

@@ -8,7 +8,7 @@ class Coins extends DrawableObject {
   IMAGES_COIN = ["img/4.Marcadores/Coins/1.png"];
 
   constructor() {
-    super().loadImage("../img/4.Marcadores/Coins/1.png");
+    super().loadImage("img/4.Marcadores/Coins/1.png");
     this.loadImages(this.IMAGES_COIN);
 
     this.x = 400 + Math.random() * 1000; //zahl zwischen 400 und 1400

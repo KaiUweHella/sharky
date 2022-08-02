@@ -10,6 +10,7 @@ class World {
   coinBar = new CoinBar();
   throwableObjects = [];
 
+
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
@@ -19,7 +20,7 @@ class World {
     this.swim();
   }
 
-  restart(){
+  restart() {
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
 
@@ -88,6 +89,12 @@ class World {
   }
 
   checkCollisions() {
+    this.collisionEnemy();
+    this.collisionCoin();
+    this.collisionBubble();
+  }
+
+  collisionEnemy() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
         if (enemy.hitBubble) {
@@ -98,7 +105,9 @@ class World {
         }
       }
     });
+  }
 
+  collisionCoin() {
     this.level.coins.forEach((coin) => {
       if (this.character.isColliding(coin) && !coin.collidedCharacter) {
         this.coinBar.coinCounter++;
@@ -108,18 +117,20 @@ class World {
         console.log(this.coinBar.coinCounter);
       }
     });
+  }
 
+  collisionBubble() {
     this.throwableObjects.forEach((bubble) => {
       this.level.enemies.forEach((enemy) => {
         if (bubble.isColliding(enemy) && !bubble.collidedEnemy) {
           bubble.collidedEnemy = true;
           enemy.hitBubble = true;
-          this.deleteBubble(bubble); 
+          this.deleteBubble(bubble);
         }
-        if (bubble.isColliding(this.endboss) && !bubble.collidedEnemy){
+        if (bubble.isColliding(this.endboss) && !bubble.collidedEnemy) {
           this.endboss.hit();
           bubble.collidedEnemy = true;
-          this.deleteBubble(bubble); 
+          this.deleteBubble(bubble);
           console.log(this.endboss.energy);
         }
       });
@@ -129,12 +140,11 @@ class World {
   checkDistanceToEndboss() {
     let distanceEndboss = this.endboss.x - this.character.x;
     if (distanceEndboss < 450) {
-        this.endboss.nearCharacter = true;
+      this.endboss.nearCharacter = true;
     } else {
-        this.endboss.nearCharacter = false;
+      this.endboss.nearCharacter = false;
     }
-}
-
+  }
 
   deleteCoin(coin) {
     let indexCurrentCoin = this.level.coins.indexOf(coin); // get index of the coin that was hit

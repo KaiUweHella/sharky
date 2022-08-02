@@ -1,10 +1,11 @@
 class ThrowableObject extends MovableObject {
   collidedBubble = false;
+  otherDirectionBubble = false;
   x;
 
   constructor(x, y) {
     super().loadImage("img/1.Sharkie/4.Attack/Bubble trap/Bubble.png");
-    this.x = x + 150;
+    this.x = x + 120;
     this.y = y + 56;
     this.height = 25;
     this.width = 25;
@@ -12,14 +13,16 @@ class ThrowableObject extends MovableObject {
   }
 
   throw() {
-    // if (world.character.otherDirection){
-    //   this.x = this.x - 150;
-    // }
+    this.otherDirection = world.character.otherDirection;
+    if (this.otherDirection) {
+      this.x = this.x - 120;
+    }
     setInterval(() => {
-      // if (world.character.otherDirection) {
-      //   this.x -= 6;
-      // } 
+      if (this.otherDirection) {
+        this.x -= 6;
+      } else {
         this.x += 6;
+      }
     }, 1000 / 60);
   }
 

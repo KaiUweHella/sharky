@@ -5,6 +5,7 @@ class Endboss extends MovableObject {
   x = 1400;
   energy = 25;
   playIntro = false;
+  playDead = false;
   nearCharacter = false;
   bubbleHit = false;
 
@@ -59,7 +60,7 @@ class Endboss extends MovableObject {
   ];
 
   constructor() {
-    super().loadImage("../img/2.Enemy/3 Final Enemy/1.Introduce/1.png");
+    super().loadImage("img/2.Enemy/3 Final Enemy/1.Introduce/1.png");
     this.loadImages(this.IMAGES_INTRODUCE);
     this.loadImages(this.IMAGES_REGULAR);
     this.loadImages(this.IMAGES_ATTACK);
@@ -69,18 +70,13 @@ class Endboss extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
+    let animateIntervall = setInterval(() => {
       if (this.nearCharacter && !this.playIntro) {
-        let introIntervall = setInterval(() => {
-          this.playAnimationOnce(this.IMAGES_INTRODUCE, introIntervall);
-        }, 200);
-        this.playIntro = true;
+        this.introAnimation();
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
-      } else if (this.isDead()) {
-        let deadEndbossIntervall = setInterval(() => {
-          this.playAnimationOnce(this.IMAGES_DEAD, deadEndbossIntervall);
-        }, 100);
+      } else if (this.isDead() && !this.playDead) {
+        this.deadEndbossAnimation(animateIntervall);
         this.showEndscreen();
       } else if (this.playIntro) {
         this.playAnimation(this.IMAGES_REGULAR);
@@ -88,11 +84,27 @@ class Endboss extends MovableObject {
     }, 200);
   }
 
+  introAnimation() {
+    this.currentImageOnce = 0;
+    let introIntervall = setInterval(() => {
+      this.playAnimationOnce(this.IMAGES_INTRODUCE, introIntervall);
+    }, 200);
+    this.playIntro = true;
+  }
+
+  deadEndbossAnimation(animateIntervall) {
+    this.currentImageOnce = 0;
+    let deadEndbossIntervall = setInterval(() => {
+      this.playAnimationOnce(this.IMAGES_DEAD, deadEndbossIntervall, animateIntervall);
+    }, 100);
+    this.playDead = true;
+  }
+
   showEndscreen() {
     document.getElementById("win").classList.remove("d-none");
     document.getElementById("restart-button").classList.remove("d-none");
     setTimeout(() => {
-      this.world.ctx = null;
+      stopAllIntervals();
     }, 1000);
   }
 }

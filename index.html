@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mouse+Memoirs&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/img/1.Sharkie/1.IDLE/1.png">
 
     <title>Sharky</title>
 
@@ -39,8 +40,12 @@
         <canvas id="canvas" width="720" height="480"></canvas>
         <img onclick="init()" id="start-button" src="img/6.Botones/Start/2.png" alt="">
         <img class="overlay-win d-none" id="win" src="img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="">
-        <img class="overlay-lose d-none" id="lose" src="img/6.Botones/Tittles/Game Over/Recurso 12.png" alt="">
+        <div class="overlay-lose d-none" id="lose">
+            <img  src="img/6.Botones/Tittles/Game Over/Recurso 12.png" alt="">
+        </div>
         <img class="d-none" onclick="restart()" id="restart-button" src="img/6.Botones/Try again/Recurso 17.png" alt="">
+        <img class="overlay-help d-none" id="overlay-help" src="img/6.Botones/Instructions 2.png" alt="">
+        <span class="btn-help" onclick="openHelp()" id="help-info">help</span>
     </div>
     <div class="action-keys">
         <div>
@@ -60,10 +65,10 @@
             </div>
         </div>
         <div>
-        <button class="btn-space" id="key-space">
-            <span>Bubble Attack</span>
-        </button>
-    </div>   
+            <button class="btn-space" id="key-space">
+                <span>Bubble Attack</span>
+            </button>
+        </div>
 </body>
 
 </html>

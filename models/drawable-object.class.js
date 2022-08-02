@@ -22,24 +22,29 @@ class DrawableObject {
 
   draw(ctx) {
     if (this instanceof Character) {
-      ctx.drawImage(
-        this.img,
-        this.sx,
-        this.sy,
-        this.sw,
-        this.sh,
-        this.x,
-        this.y,
-        this.width,
-        this.height
-      );
+      try {
+        ctx.drawImage(
+          this.img,
+          this.sx,
+          this.sy,
+          this.sw,
+          this.sh,
+          this.x,
+          this.y,
+          this.width,
+          this.height
+        );
+      } catch (e) {
+        console.warn("error", e);
+        console.log(this.img);
+      }
     } else {
-      try{
-      ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    } catch(e){
-      console.warn('error', e);
-      console.log(this.img.src);
-    }
+      try {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+      } catch (e) {
+        console.warn("error", e);
+        console.log(this.img.src);
+      }
     }
   }
 

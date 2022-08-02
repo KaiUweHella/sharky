@@ -3,7 +3,8 @@ class MovableObject extends DrawableObject {
   otherDirection = false;
   energy = 100;
   lastHit = 0;
-  energy = 100;
+  currentImageOnce = 0;
+  currentImageAttack = 0;
 
   moveLeft() {
     setInterval(() => {
@@ -14,37 +15,30 @@ class MovableObject extends DrawableObject {
   playAnimation(images) {
     let i = this.currentImage % images.length; // let i = 0 % 6; // i = 0, 1, 2, 3, 4, 5, 0, 1, ...
     let path = images[i];
-    let lastImg = images.length - 1;
 
     this.img = this.imageCache[path];
 
-    if (this.isDead() && this.currentImage >= lastImg) {
-      this.currentImage = lastImg;
-    } else {
-      this.currentImage++;
-    }
+    this.currentImage++;
   }
 
-  playAnimationOnce(images, interval) {
-    let i = this.currentImage % images.length; // let i = 0 % 6; // i = 0, 1, 2, 3, 4, 5, 0, 1, ...
+  playAnimationOnce(images, interval, secIntervall) {
+    let i = this.currentImageOnce % images.length;
     let path = images[i];
-    let lastImg = images.length - 1;
-
     this.img = this.imageCache[path];
+    this.currentImageOnce++;
 
-    if (this.currentImage >= lastImg) {
+    if (this.currentImageOnce > images.length - 1) {
       clearInterval(interval);
-    } else {
-      this.currentImage++;
+      clearInterval(secIntervall);
     }
   }
 
   isColliding(mo) {
     return (
-      this.x + this.width > mo.x &&
-      this.y + this.height > mo.y &&
-      this.x < mo.x + mo.width &&
-      this.y < mo.y + mo.height
+      this.x + this.width - 20 > mo.x &&
+      this.y + this.height - 10 > mo.y &&
+      this.x + 20 < mo.x + mo.width &&
+      this.y + 10 < mo.y + mo.height
     );
   }
 

@@ -39,16 +39,6 @@ class Character extends MovableObject {
     "img/1.Sharkie/5.Hurt/1.Poisoned/4.png",
     "img/1.Sharkie/5.Hurt/1.Poisoned/5.png",
   ];
-  // IMAGES_ATTACK = [
-  //   'img/1.Sharkie/4.Attack/Fin slap/1.png',
-  //   'img/1.Sharkie/4.Attack/Fin slap/2.png',
-  //   'img/1.Sharkie/4.Attack/Fin slap/3.png',
-  //   'img/1.Sharkie/4.Attack/Fin slap/4.png',
-  //   'img/1.Sharkie/4.Attack/Fin slap/5.png',
-  //   'img/1.Sharkie/4.Attack/Fin slap/6.png',
-  //   'img/1.Sharkie/4.Attack/Fin slap/7.png',
-  //   'img/1.Sharkie/4.Attack/Fin slap/8.png'
-  // ];
   IMAGES_IDLE = [
     "img/1.Sharkie/1.IDLE/1.png",
     "img/1.Sharkie/1.IDLE/2.png",
@@ -121,22 +111,12 @@ class Character extends MovableObject {
 
     this.Animation_Attack = setInterval(() => {
       if (this.world.keyboard.SPACE && this.world.coinBar.coinCounter >= 1) {
-        let attackInterval = setInterval(() => {
-          this.playAnimationOnce(this.IMAGES_ATTACK_BUBBLE, attackInterval);
-        }, 100);
+        this.attackAnimation();
         this.checkThrowObjects();
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_POISON_HURT);
       } else if (this.isDead()) {
-        if (this.sy == 420) {
-          this.isDeadOutcut();
-        }
-        let deadAnimationInterval = setInterval(() => {
-          this.playAnimationOnce(
-            this.IMAGES_DEAD_POISON,
-            deadAnimationInterval
-          );
-        }, 100);
+        this.deadAnimation();
         this.showEndscreen();
       } else if (
         this.world.keyboard.RIGHT ||
@@ -151,6 +131,23 @@ class Character extends MovableObject {
     }, 100);
   }
 
+  attackAnimation() {
+    this.currentImageOnce = 0;
+    let attackInterval = setInterval(() => {
+      this.playAnimationOnce(this.IMAGES_ATTACK_BUBBLE, attackInterval, "attack");
+    }, 100);
+  }
+
+  deadAnimation() {
+    if (this.sy == 420) {
+      this.isDeadOutcut();
+    }
+    this.currentImageOnce = 0;
+    let deadAnimationInterval = setInterval(() => {
+      this.playAnimationOnce(this.IMAGES_DEAD_POISON, deadAnimationInterval);
+    }, 100);
+  }
+
   isDeadOutcut() {
     let a = 200;
     let b = 360;
@@ -160,35 +157,35 @@ class Character extends MovableObject {
     this.y = this.y - a / 4;
   }
 
-  attackOutcut() {
-    let a = 80;
-    let b = 60;
-    let c = 80;
-    this.sy = this.sy - a;
-    this.sh = this.sh + b;
-    this.height = this.height + b / 4;
-    this.y = this.y - a / 4;
-    this.sw = this.sw + c;
-    this.width = this.width + c / 4;
-  }
+  // attackOutcut() {
+  //   let a = 80;
+  //   let b = 60;
+  //   let c = 80;
+  //   this.sy = this.sy - a;
+  //   this.sh = this.sh + b;
+  //   this.height = this.height + b / 4;
+  //   this.y = this.y - a / 4;
+  //   this.sw = this.sw + c;
+  //   this.width = this.width + c / 4;
+  // }
 
-  normalOutCut() {
-    let a = 80;
-    let b = 60;
-    let c = 80;
-    this.sy = this.sy + a;
-    this.sh = this.sh - b;
-    this.height = this.height - b / 4;
-    this.y = this.y + a / 4;
-    this.sw = this.sw - c;
-    this.width = this.width - c / 4;
-  }
+  // normalOutCut() {
+  //   let a = 80;
+  //   let b = 60;
+  //   let c = 80;
+  //   this.sy = this.sy + a;
+  //   this.sh = this.sh - b;
+  //   this.height = this.height - b / 4;
+  //   this.y = this.y + a / 4;
+  //   this.sw = this.sw - c;
+  //   this.width = this.width - c / 4;
+  // }
 
   showEndscreen() {
     document.getElementById("lose").classList.remove("d-none");
     document.getElementById("restart-button").classList.remove("d-none");
     setTimeout(() => {
-      this.world.ctx = null;
-    }, 1000);
+      stopAllIntervals();
+    }, 2000);
   }
 }
